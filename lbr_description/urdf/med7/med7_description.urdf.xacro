@@ -280,8 +280,38 @@
             <origin xyz="0 0 0.035" rpy="0 0 0" />
         </joint>
 
+        <!-- still testing  -->
         <link name="link_ee">
+            <visual>
+                <geometry>
+                    <cylinder length="0.2" radius="0.02"/>
+                </geometry>
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder length="0.2" radius="0.02"/>
+                </geometry>
+            </collision>
         </link>
+<!-- 
+        <joint name="joint_end" type="fixed">
+            <parent link="link_ee" />
+            <child link="link_end" />
+            <origin xyz="0 0 0.035" rpy="0 0 0" />
+        </joint>
+
+        <link name="link_end">
+            <visual>
+            <geometry>
+                <cylinder length="0.2" radius="0.02"/>
+            </geometry>
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder length="0.2" radius="0.02"/>
+                </geometry>
+            </collision>
+        </link> -->
 
         <xacro:lbr_gazebo robot_name="${robot_name}" />
         <!-- TODO: move modes to args, decouple urdf/gazebo/controls -->

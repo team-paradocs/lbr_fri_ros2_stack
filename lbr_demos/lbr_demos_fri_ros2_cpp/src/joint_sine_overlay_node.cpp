@@ -34,7 +34,7 @@ protected:
 
     if (lbr_state->session_state == KUKA::FRI::COMMANDING_ACTIVE) {
       // overlay sine wave on 4th joint
-      lbr_position_command_.joint_position[3] += amplitude_ * sin(phase_);
+      lbr_position_command_.joint_position[1] += amplitude_ * sin(phase_);
       phase_ += 2 * M_PI * frequency_ * lbr_state->sample_time;
 
       lbr_position_command_pub_->publish(lbr_position_command_);

@@ -25,6 +25,7 @@ setup(
             "joint_sine_overlay_node = lbr_demos_fri_ros2_python.joint_sine_overlay_node:main",
             "torque_sine_overlay_node = lbr_demos_fri_ros2_python.torque_sine_overlay_node:main",
             "wrench_sine_overlay_node = lbr_demos_fri_ros2_python.wrench_sine_overlay_node:main",
+            "joint_state_node = lbr_demos_fri_ros2_python.joint_state_node:main",
         ],
     },
 )
