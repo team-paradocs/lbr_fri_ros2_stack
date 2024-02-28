@@ -280,38 +280,34 @@
             <origin xyz="0 0 0.035" rpy="0 0 0" />
         </joint>
 
-        <!-- still testing  -->
         <link name="link_ee">
+            <inertial>
+                <origin rpy="0 0 0" xyz="0.0 -0.029824 0.076267" />
+                <mass value="1.474048" />
+                <inertia ixx="0.008179" ixy="0.0" ixz="0.0" iyy="0.006879" iyz="0.002704" izz="0.003709" />
+            </inertial>
             <visual>
+                <origin rpy="0 0 0" xyz="0.0 0.0 0.10" />
                 <geometry>
-                    <cylinder length="0.2" radius="0.02"/>
+                    <cylinder length="0.2" radius="0.02" />
                 </geometry>
             </visual>
             <collision>
+                <origin rpy="0 0 0" xyz="0.0 0.0 0.10" />
                 <geometry>
-                    <cylinder length="0.2" radius="0.02"/>
+                    <cylinder length="0.2" radius="0.02" />
                 </geometry>
             </collision>
         </link>
-<!-- 
-        <joint name="joint_end" type="fixed">
+
+        <joint name="joint_tool" type="fixed">
             <parent link="link_ee" />
-            <child link="link_end" />
-            <origin xyz="0 0 0.035" rpy="0 0 0" />
+            <child link="link_tool" />
+            <origin xyz="0 0 0.2" rpy="0 0 0" />
         </joint>
 
-        <link name="link_end">
-            <visual>
-            <geometry>
-                <cylinder length="0.2" radius="0.02"/>
-            </geometry>
-            </visual>
-            <collision>
-                <geometry>
-                    <cylinder length="0.2" radius="0.02"/>
-                </geometry>
-            </collision>
-        </link> -->
+        <link name="link_tool">
+        </link>
 
         <xacro:lbr_gazebo robot_name="${robot_name}" />
         <!-- TODO: move modes to args, decouple urdf/gazebo/controls -->

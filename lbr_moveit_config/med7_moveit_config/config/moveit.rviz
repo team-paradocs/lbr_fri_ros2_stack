@@ -110,6 +110,10 @@ Visualization Manager:
             Alpha: 1
             Show Axes: false
             Show Trail: false
+          link_tool:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           world:
             Alpha: 1
             Show Axes: false
@@ -201,6 +205,10 @@ Visualization Manager:
             Show Trail: false
             Value: true
           link_ee:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          link_tool:
             Alpha: 1
             Show Axes: false
             Show Trail: false
