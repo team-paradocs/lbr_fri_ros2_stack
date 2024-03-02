@@ -154,13 +154,19 @@ def launch_setup(context: LaunchContext) -> List[LaunchDescriptionEntity]:
 
 def generate_launch_description() -> LaunchDescription:
     ld = LaunchDescription()
-    ld.add_action(LBRDescriptionMixin.arg_model())
+    # ld.add_action(LBRDescriptionMixin.arg_model())
+    ld.add_action(DeclareLaunchArgument(
+            name="model",
+            default_value="med7",
+            description="Robot model.",
+        )
+    )
     ld.add_action(LBRDescriptionMixin.arg_robot_name())
     ld.add_action(LBRDescriptionMixin.arg_port_id())
     ld.add_action(
         DeclareLaunchArgument(
             name="moveit",
-            default_value="false",
+            default_value="true",
             description="Whether to launch MoveIt 2.",
         )
     )
