@@ -15,6 +15,20 @@ from lbr_bringup import LBRMoveGroupMixin
 from lbr_description import GazeboMixin, LBRDescriptionMixin, RVizMixin
 from lbr_ros2_control import LBRROS2ControlMixin
 
+import os
+import yaml
+from ament_index_python.packages import get_package_share_directory
+
+def load_yaml(package_name, file_path):
+    package_path = get_package_share_directory(package_name)
+    absolute_file_path = os.path.join(package_path, file_path)
+
+    try:
+        with open(absolute_file_path, "r") as file:
+            return yaml.safe_load(file)
+    except EnvironmentError:  # parent of IOError, OSError *and* WindowsError where available
+        return None
+
 
 def launch_setup(context: LaunchContext) -> List[LaunchDescriptionEntity]:
     ld = LaunchDescription()
@@ -65,6 +79,31 @@ def launch_setup(context: LaunchContext) -> List[LaunchDescriptionEntity]:
         )
     )
 
+
+    # Load additional OMPL pipeline
+    ompl_planning_pipeline_config = {
+        "ompl_2": {
+            "planning_plugins": [
+                "ompl_interface/OMPLPlanner",
+            ],
+            "request_adapters": [
+                "default_planning_request_adapters/ResolveConstraintFrames",
+                "default_planning_request_adapters/ValidateWorkspaceBounds",
+                "default_planning_request_adapters/CheckStartStateBounds",
+                "default_planning_request_adapters/CheckStartStateCollision",
+            ],
+            "response_adapters": [
+                "default_planning_response_adapters/AddTimeOptimalParameterization",
+                "default_planning_response_adapters/ValidateSolution",
+                "default_planning_response_adapters/DisplayMotionPath",
+            ],
+        }
+    }
+    ompl_planning_yaml = load_yaml(
+        "med7_moveit_config", "config/ompl_planning.yaml"
+    )
+    ompl_planning_pipeline_config["ompl_2"].update(ompl_planning_yaml)
+
     model = LaunchConfiguration("model").perform(context)
     moveit_configs_builder = LBRMoveGroupMixin.moveit_configs_builder(
         robot_name=model,
@@ -76,6 +115,7 @@ def launch_setup(context: LaunchContext) -> List[LaunchDescriptionEntity]:
         LBRMoveGroupMixin.node_move_group(
             parameters=[
                 moveit_configs_builder.to_dict(),
+                ompl_planning_pipeline_config,
                 movegroup_params,
                 {"use_sim_time": True},
             ],
