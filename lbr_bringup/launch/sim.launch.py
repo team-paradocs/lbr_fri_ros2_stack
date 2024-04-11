@@ -1,7 +1,7 @@
 from typing import List
 
 from launch import LaunchContext, LaunchDescription, LaunchDescriptionEntity
-from launch.actions import DeclareLaunchArgument, OpaqueFunction, RegisterEventHandler
+from launch.actions import DeclareLaunchArgument, OpaqueFunction, RegisterEventHandler, ExecuteProcess
 from launch.conditions import IfCondition
 from launch.event_handlers import OnProcessExit
 from launch.substitutions import (
@@ -163,6 +163,26 @@ def launch_setup(context: LaunchContext) -> List[LaunchDescriptionEntity]:
         OnProcessExit(target_action=spawn_entity, on_exit=[rviz_moveit, rviz])
     )
     ld.add_action(rviz_event_handler)
+
+    # Define joint angles for arm configuration
+    joint_angles = {
+        'A1': 0.0,
+        'A2': 0.0,
+        'A3': 0.0,
+        'A4': 1.5708,
+        'A5': 0.0,
+        'A6': -1.5708,
+        'A7': 0.0,
+        # Add more joint angles as needed
+    }
+
+    set_joint_positions = ExecuteProcess(
+        cmd=['ros2', 'control', 'set_joint_positions', '--controller', 'joint_trajectory_controller'] +
+            [f'{joint_name}={joint_angle}' for joint_name, joint_angle in joint_angles.items()],
+        output='screen'
+    )
+    
+    ld.add_action(set_joint_positions)
 
     return ld.entities
 

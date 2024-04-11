@@ -314,41 +314,34 @@
                 <mass value="1.474048" />
                 <inertia ixx="0.008179" ixy="0.0" ixz="0.0" iyy="0.006879" iyz="0.002704" izz="0.003709" />
             </inertial>
-            <!-- <visual>
-                <origin rpy="0 0 0" xyz="-0.066 -0.033 0" />
-                <geometry>
-                    <mesh filename="package://lbr_description/meshes/med7/visual/finalshiftedee.STL" scale="0.001 0.001 0.001" />
-                </geometry>
-                <material name="gray">
-                    <color rgba="0.5 0.5 0.5 1.0" />
-                </material>
-            </visual> -->
 
             <visual>
                 <origin rpy="0 0 3.1415926" xyz="0 0 0" />
                 <geometry>
-                    <mesh filename="package://lbr_description/meshes/med7/visual/finalshiftedee.STL" scale="0.001 0.001 0.001" />
+                    <mesh filename="package://lbr_description/meshes/med7/visual/link_ee.stl" scale="0.001 0.001 0.001" />
                 </geometry>
                 <material name="gray">
                     <color rgba="0.5 0.5 0.5 1.0" />
                 </material>
             </visual>
 
+            <!-- round 219 mm to 220 mm, shift half of the cylinder to move the collision box-->
             <collision>
-                <origin rpy="0 0 0" xyz="0.0 0.0 0.10" />
+                <origin rpy="0 0 0" xyz="0.0 0.0 0.11" />
                 <geometry>
-                    <cylinder length="0.218" radius="0.04" />
+                    <cylinder length="0.22" radius="0.04" />
                 </geometry>
             </collision>
         </link>
-        <!-- change the values because ee is not cylinder of 20,2 cm -->
 
+        <!-- 219 mm, from link_ee frame to the end of end-effector + 9.5 mm, the chuck part that sticks out -->
         <joint name="joint_drillbit" type="fixed">
             <parent link="link_ee" />
             <child link="link_drillbit" />
-            <origin xyz="0 0 0.2" rpy="0 0 0" />
+            <origin xyz="0 0 0.2285" rpy="0 0 0" />
         </joint>
 
+        <!-- 2.8 mm drill is broken, we are using 3.2 mm drill now-->
         <link name="link_drillbit">
             <inertial>
                 <origin rpy="0 0 0" xyz="0.0 -0.029824 0.076267" />
@@ -356,26 +349,28 @@
                 <inertia ixx="0.008179" ixy="0.0" ixz="0.0" iyy="0.006879" iyz="0.002704" izz="0.003709" />
             </inertial>
             <visual>
-                <origin rpy="0 0 0" xyz="0.0 0.0 0.0375" />
+                <!-- shift half of the cylinder length-->
+                <origin rpy="0 0 0" xyz="0.0 0.0 0.0165" />
                 <geometry>
-                    <cylinder length="0.0326" radius="0.0028" />
+                    <cylinder length="0.031" radius="0.0032" />
                 </geometry>
                 <material name="gray">
                     <color rgba="0.5 0.5 0.5 1.0" />
                 </material>
             </visual>
             <collision>
-                <origin rpy="0 0 0" xyz="0.0 0.0 0.0375" />
+                <origin rpy="0 0 0" xyz="0.0 0.0 0.0165" />
                 <geometry>
-                    <cylinder length="0.0326" radius="0.0028" />
+                    <cylinder length="0.031" radius="0.0032" />
                 </geometry>
             </collision>
         </link>
 
+        <!-- 31 mm -->
         <joint name="joint_tool" type="fixed">
             <parent link="link_drillbit" />
             <child link="link_tool" />
-            <origin xyz="0 0 0.0326" rpy="0 0 0" />
+            <origin xyz="0 0 0.031" rpy="0 0 0" />
         </joint>
 
         <link name="link_tool">
