@@ -33,6 +33,7 @@ class LBRMoveGroupMixin:
         return DeclareLaunchArgument(
             name="capabilities",
             default_value="",
+            # default_value="pilz_industrial_motion_planner/MoveGroupSequenceAction pilz_industrial_motion_planner/MoveGroupSequenceService",
             description="Non-default space separated non-default list of MoveGroup capabilities.",
         )
 
@@ -68,6 +69,11 @@ class LBRMoveGroupMixin:
                 ),
             )
             .planning_pipelines(default_planning_pipeline="ompl", pipelines=["ompl"])
+            # .planning_pipelines(default_planning_pipeline="pilz_industrial_motion_planner", pipelines=["ompl", "pilz_industrial_motion_planner"])
+            # .robot_description_semantic(file_path="config/med7.srdf")
+            # .planning_scene_monitor(
+            #     publish_robot_description=True, publish_robot_description_semantic=True
+            # )      
         )
 
     @staticmethod

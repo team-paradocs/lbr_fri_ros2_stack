@@ -32,7 +32,8 @@
 
 /**/force_torque_broadcaster:
   ros__parameters:
-    frame_id: lbr/link_ee # namespace: https://github.com/ros2/rviz/issues/1103
+    # frame_id: lbr/link_ee # namespace: https://github.com/ros2/rviz/issues/1103
+    frame_id: lbr/link_tool # namespace: https://github.com/ros2/rviz/issues/1103
     sensor_name: estimated_ft_sensor
 
 /**/joint_trajectory_controller:

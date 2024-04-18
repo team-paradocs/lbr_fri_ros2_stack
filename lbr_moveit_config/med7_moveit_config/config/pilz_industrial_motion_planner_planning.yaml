@@ -1,0 +1,19 @@
+planning_plugin: pilz_industrial_motion_planner/CommandPlanner
+request_adapters: >-
+  default_planner_request_adapters/FixWorkspaceBounds
+  default_planner_request_adapters/FixStartStateBounds
+  default_planner_request_adapters/FixStartStateCollision
+  default_planner_request_adapters/FixStartStatePathConstraints
+capabilities: >-
+  pilz_industrial_motion_planner/MoveGroupSequenceAction
+  pilz_industrial_motion_planner/MoveGroupSequenceService
+
+planner_configs:
+  LIN:
+    type: pilz_industrial_motion_planner::LINPlanner
+
+default_planner_config: LIN
+
+arm:
+  planner_configs:
+  - LIN
